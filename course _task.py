@@ -1,5 +1,5 @@
 def game(magic_num):
-    user_input = input('please guess\n')
+    user_input = int(input('please guess\n'))
 
     if user_input in magic_num:
         print('won')
@@ -16,4 +16,4 @@ def game(magic_num):
         print('bye')
 
 
-game(["3", "9"])
+game([3,9])
