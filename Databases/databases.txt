@@ -1,0 +1,58 @@
+a DATABASE is a structured collection of information or data
+
+it can be defined as a repository of data wich has a certain structure, managed by  DMBS ( data management system)
+Types
+I. NoSQL databases are affected by CAP theorem.
+     one of the main differences between relational databases and nosql database is consistency.
+     a relational database enforces ACID -atomicity, consistency, isolation and durability
+     nosql- BASE model- basically available, soft state eventual consistency
+II. Relational databases are the most used in the world- RBDMS
+    software applications can use relational databases via dedicated database servers or lightweight RDBMS engines embeded
+    in the software application as shared libraries
+in a database a single operation is called a transaction:- CREATE, READ , UPDATE, DELETE (CRUD)
+    SQL LANGUAGE- is a declarative programming language, and is the standard relational database language.
+                    1. DATA DEFINITION LANGUAGE(DDL)- defines relational structure
+                    2. DATA MANIPULATION LANGUAGE (DML)- retrieves/ extracts info from the relations
+                    3. DATA CONTROL LANGUAGE (DCL)- controls the access rights to relations.
+BASIC CONCEPTS OF A RELATIONAL MODEL
+    I. RELAION- each row =  group of related data that points ot an object-
+                is a set of tuples, each set has the same attributes with a domain ( a type and a name)
+                relation state is defined by relation tuples, this adding, deleting changes the relation state.
+                tuple order is not important
+                      can be ordered by an attribute or a set of attributes
+                      cannot have duplicate tuples
+                -can represent a customer or different associations between relations
+                  example: custer has services, services are offered to customers
+                - separating data into different relations is key to relational modeling
+                NORMALIZATION - organising relation columns and relations to reduce data redundancy
+    II. TUPLES- set of ordered attributes
+              - unlike sets, order matters, multi- valued attributes and composite attributes are not allowed
+              -introducing the 3VL( 3 value logic) where we have TRUE FALSE and UNKNOWN
+              - UNKNOWN can be interpreted in many ways - missing data
+                                                      - unknown data
+                                                      - not applicable
+    III. ATTRIBUTES- part of the tuple
+                   - has a name--> should be distinct with the relation
+                           domain-->defines -the possible set of values an attribute can have
+                                            -putting a data type and a constraint
+                                 -- the value in the domains should be ATOMIC (indivisible)
+                                     EX: name attribute is not atomic, because it an have fist and last name
+                                         country code is atomic, phone number
+
+
+CONSTANTS
+I INHERITED  FROM THE RELATIONAL MODEL:--> domain integirty, entity integrity , referential integrity restrains
+             a). DOMAIN INTEGRITY CONSTRAINT- ensures data validity by defining the data type:  text, int, boolean
+                                            -  set a check constraint after defining the data type
+                                                                    - can be applied to one attribute or multiple
+                                                                            ex: start_date < end_date ( order shipping)
+                                            -set a default constraint- the attribute can have a default value
+                                                                     - have a dynamic value based on a current time, date
+                                            - set unique constraints- the attribute wil have different value in each tuple
+                                            not null constraint- by default an attribute can have a null value
+                                                                - this restricts it from implementing that
+             b). ENTITY INTEGRITY CONSTRAINTS:- primary key values can't be null
+                                              - the primary key is used to identify individual rows of relational data
+             c). REFERENTIAL INTEGRITY CONSTRAINTS- is between 2 tables
+                                                   - if a FOREIGN KEY in table 1 is a PRIMARY KEY in table 2, than every value
+                                                   of the foreign key must be available in table 2
