@@ -1,0 +1,18 @@
+
+ in order to select a table from  a given database we can write: SELECT from + NAME OF  THE TABLE
+ the "*" means that all the table will be returned.
+II. In order to get only a column from the table, we can specify by writing for example :
+                    SELECT+  NAME OF TABLE+ .NAME EOF THE COLUMN from name of the table
+    we can have multiple selection by simply adding the name of the next column separated by ","
+                    in the pgadmmin4 database:
+                                   SELECT customers.first_name, customers.last_name from customers
+III. If we want the name of the columns to be presented in another way, we can use an ALIAS, and rename the columns:
+                    for the pgadmin4 ex:
+                                  Select customers.fist_name as "Fist Name", customers.last_name as "Last Name" from customers
+                                  SELECT TABLE NAME.COLUMN NAME as "ALIAS NAME" from NAME OF THE TABLE
+IV. Just like in Sqlite, we can use WHERE to filter through the attributes
+                                select NAME OF THE TABLE.NAME OF THE COLUMN from NAME OF THE TABLE, where NAME OF THE COLUMN = NAME OF THE ATTRIBUTE
+                                 PGADMIN4 EXAMPLE:
+                                  Select customers.first_name from customers where first_name = 'Anna'
+                         we can also add the Alias as well:
+                                  Select customer.first_name as " First Name" from customers Where first_name = 'Anna'
