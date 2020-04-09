@@ -1,0 +1,12 @@
+Data modeling-  represents real world entities such as customers, service, products and the relation between them
+             - it provides an abstraction for the relations in the database
+             -plays and important role in achieving data consistency across interactive systems
+                       EX: if an entity is not defined or is poorly defined, it will lead to inconsistent data ( having one table
+                       with the key client and one with the attribute customer)
+I. CONCEPTUAL DATA MODELING
+        defines what a system contains, puts in place the semantics and is a link between developers and business depart.
+II. LOGIC DATA MODEL
+        describes how the system should be implemented, regardless of the DBMS
+        the purpose is to develop a technical map of rules and  data structures
+III. PHYSICAL DATA MODELING- describes how the system will be implemented, using a specific DBMS
+                            the purpose is the actual creation o the database
