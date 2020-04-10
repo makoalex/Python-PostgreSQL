@@ -6,13 +6,35 @@ II. In order to get only a column from the table, we can specify by writing for 
     we can have multiple selection by simply adding the name of the next column separated by ","
                     in the pgadmmin4 database:
                                    SELECT customers.first_name, customers.last_name from customers
-III. If we want the name of the columns to be presented in another way, we can use an ALIAS, and rename the columns:
+III. AS- ALIAS - If we want the name of the columns to be presented in another way, we can use an ALIAS, and rename the columns:
                     for the pgadmin4 ex:
                                   Select customers.fist_name as "Fist Name", customers.last_name as "Last Name" from customers
                                   SELECT TABLE NAME.COLUMN NAME as "ALIAS NAME" from NAME OF THE TABLE
-IV. Just like in Sqlite, we can use WHERE to filter through the attributes
+IV. WHERE- Just like in Sqlite, we can use WHERE to filter through the attributes
                                 select NAME OF THE TABLE.NAME OF THE COLUMN from NAME OF THE TABLE, where NAME OF THE COLUMN = NAME OF THE ATTRIBUTE
                                  PGADMIN4 EXAMPLE:
                                   Select customers.first_name from customers where first_name = 'Anna'
                          we can also add the Alias as well:
                                   Select customer.first_name as " First Name" from customers Where first_name = 'Anna'
+V. LIMIT- if we want to limit the amount of results we get back we can use LIMIT + integer
+
+VI. UPDATE-To update an attribute, we have to use :
+                                             UPDATE+ NAME OF TABLE+ SET+ NEW VALUE OF ATTRIBUTE WE WANT TO CHANGE+ WHERE
+                                                                                                                OLD VALUE OF ATTRIBUTE WE WAN1T TO CHANGE
+                                                 PGADMIN4 EX: UPDATE items SET price = 4.00 WHERE price = 3.50
+                                                             or we can use other identifiers from the  tuple
+                                                             UPDATE items SET price = 4.00 WHERE name = 'INK'
+                   NOTA BENE!!
+                               if we forget to filter using WHERE  we will overwrite all the data
+VII. DELETE can be used to delete from tables, but must have the WHERE filter.
+                if we have relational tables, we must refer to one of the the tables where the attribute is used and delete from there first.
+VIII. LIKE/ %/_ - each of these is used to help us filter through the attributes.
+                LIKE:- is used in the statement after WHERE:
+                                                          SELECT * FROM TABLE NAME WHERE ATTRIBUTE NAME LIKE
+                     is combined with either % or _ to filter :
+                                          % represents any number of characters
+                                          - represents one single character
+                                      Example: extracting the name SCOTT:
+                                                                 SELECT * from CUSTOMERS WHERE last_name LIKE '%t%'
+                                                                                    name that has a T with any number of characters before and after
+                                                                 SELECT* FROM CUSTOMERS WHERE last_name like '___tt'-3 underscores for each charact
