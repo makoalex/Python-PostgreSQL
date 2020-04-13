@@ -25,4 +25,17 @@ To get only the rows from the left or right table, we can use LEFT OR RIGHT JOIN
 FULL JOIN- will produce a result that contains a all rows from  table 1 and table 2 with matching values and corresponding
             null values where no match was found
            THE SYNTAX IS THE SAME WITH ONLY FULL JOIN INSTEAD OF LEFT JOIN
-           
+
+example of extracting the customers that didn't buy any items ordered by the last name
+     select customers.first_name, customers.last_name, customers.id
+     from customers left join purchases
+     on customers.id = purchases.customer_id
+     where purchases.customer_id is Null
+     order by last_name
+
+WE CAN JOIN 3 OR MORE TABLES TOGETHER:
+    - first join 2 tables and the 3rd join with the result of the first join
+      EXAMPLE:
+                select * from items
+                inner join purchases on items.id = purchases.item_id
+                inner join customers on customers.id= purchases.customer_id
