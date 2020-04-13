@@ -1,0 +1,28 @@
+
+
+JOINs are key elements in relational databases
+      help retrieve important data from multiple tables at once
+      treat rows of data  like sets in Python
+
+one of the main things we can do with sets in Python is INTERSECT
+ we can do that in tables as well, use an intersect function on columns
+         I.  INNER JOIN
+                 we can intersect data  from one table with another where they match.
+                 intersect data from one row with another where they match the data
+          SYNTAX:
+                   select* from table name INNER JOIN table name ON table name. column name = table name. column name
+           pgadmin4: select* from
+LEFT JOIN - return all records from the left table(table1 ) and the records that match from the right table (table2)
+            if they don't match the data from the right table is blank
+                SYNTAX : select* or COLUMN NAME FROM TABLE1 RIGHT JOIN TABLE 2 ON TABLE1.COLUMN NAME = TABLE2. COLUMN NAME
+
+RIGHT JOIN- returrn all records from teh right table(2) with matching records from the table on the left.
+          - returns null if there are not matches
+
+To get only the rows from the left or right table, we can use LEFT OR RIGHT JOIN, with the WHERE statement to filter
+            select * from  FROM TABLE 1 LEFT/RIGHT JOIN TABLE 2 ON TABLE 1 .COLUMN NAME = TABLE 2. COLUMN NAME WHERE
+
+FULL JOIN- will produce a result that contains a all rows from  table 1 and table 2 with matching values and corresponding
+            null values where no match was found
+           THE SYNTAX IS THE SAME WITH ONLY FULL JOIN INSTEAD OF LEFT JOIN
+           
