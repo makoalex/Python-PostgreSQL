@@ -1,0 +1,68 @@
+
+GROUP BY
+after we use one of the join methods we can remove the duplicates by using GROUP BY
+it groups rows that have the same value
+it is often used with AGGREGATE FUNCTIONS ( MAX, MIN , AVG, SUM, COUNT)
+       SYNTAX:
+            SELECT COLUMN NAME/* FROM TABLE1 INNER/LEFT/RIGHT JOIN TABLE 2 ON TABLE1.COLUMN NAME = TABLE2.COLUMN NAME
+            GROUP BY COLUMN NAME
+       WITH FUNCTION:
+             SELECT FUNCT(COLUMN NAME) FROM TABLE 1 INNER JOIN TABLE2 ON ___,,___ ____,,___
+              EXAMPLE FROM PGADMMIN4:
+                                        select customers.first_name, customers.last_name, sum(items.price) from items inner join purchases
+                                        on items.id = purchases.item_id
+                                        inner join customers on customers.id = purchases.customer_id
+                                        group by customers.id
+                                        order by customers.last_name
+
+ORDER BY
+
+is used to sort the result in ascending or descending order
+added at the end of the statement
+gives the result by default in ascending order, so we must use DESC to get a descending order
+LIMIT + number of results to be filtered
+            SELECT* FROM TABLE NAME , ORDER BY NAME DESC LIMIT 1 - will return the lowest value
+
+
+CREATE TABLE
+
+            CREATE TABLE public. NAME OF THE TABLE(
+                      NAME OF COLUMN1 datatype, NAME OF COLUMN 2 datatype...)
+            a copy of an existing table can be created by using CREATE TABLE
+            the table gets the same column definitions as the previous table. ALL OR SPECIFIC COLUMNS CAN BE SELECTED
+            THE TABLE WILL BE FILLED WITH DATA FROM THE PRE EXISTING TABLE
+              SYNTAX:
+                      CREATE TABLE new name AS
+                      SELECT COLUMN 1, COLUMN 2...
+                      FROM pre existing table name
+                      WHERE..
+
+a table can have constraints:
+                        added when you create the table or when you alter it after you specify the data type
+                        CREATE TABLE NAME OF TABLE ( COLUMN 1 NAME, DATATYPE, CONSTRAINT...)
+they are used to specify rules for the data in the table
+used to limit the type of data that can go into a table
+
+I. NOT NULL:- ENSURES THAT A COLUMN CANNOT HAVE A NULL VALUE
+              it enforces a filed to always have a value
+
+II. UNIQUE- ENSURES THAT ALL THE DATA IN A COLUMN IS UNIQUE.
+           - a PRIMARY KEY has an automatic unique constraint
+           can have multiple constraints  per table but only 1 PRIMARY KEY
+III. PRIMARY KEY- UNIQUELY IDENTIFIES EACH RECORD IN A FILE
+                - a table can have only one primary key, and this can consist of 1 or multiple columns
+                - we can write the PRIMARY KEY immediately after the datatype, or added at the end
+                                CONSTRAINT NAME.PKEY PRIMARY KEY(COLUMN NAME)
+IV. FOREIGN KEY-IS USED TO LINK 2 TABLES TOGETHER.
+                THE FOREIGN KEY IN A TABLE REFERS TO THE FOREIGN KEY IN ANOTHER TABLE.
+                - the foreign key table is called the child key table
+
+V. CHECK- LIMITS THE VALUE RANGE THAT CAN BE PLACED INTO A COLUMN.
+                                CREATE TABLE public. persons(name character varying (100),
+                                                              Age integer Check (Age> 18))
+VI. DEFAULT- IS USED TO ADD A DEFAULT VALUE TO A COLUMN
+            - all new entries are going to be default unless another value is specified
+                        CREATE TABLE public.Persons( id , integer PRIMARY KEY
+                                                     NAME character varying (100) Not Null,
+                                                     city character varying(100) Default 'oslo')
+
