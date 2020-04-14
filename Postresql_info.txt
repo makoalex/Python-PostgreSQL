@@ -87,10 +87,10 @@ AUTO-INCREMENTING - 1. IS DONE BY CREATING A SEQUENCE
                      3. last step is we have to tell our sequence that it belongs to id column,
                          so that when we don't need the table anymore and delete it , we also delete the sequence as we
                          will not be needing it
-                         ALTER SEQUENCE TABLENAME_COULMN NAME_SEQ OWNED BY TABLE_NAME.COLUMN NAME
+                         ALTER SEQUENCE TABLE NAME_COULMN NAME_SEQ OWNED BY TABLE_NAME.COLUMN NAME
                               EXAMPLE:
                                         ALTER SEQUENCE users_id_seq OWNED BY public.users.id
-INDEX- special look up yables that datbases can use to retrieve data faster
+INDEX- special look up tables that databases can use to retrieve data faster
      - is a pointer to data in a table
      - it helps speed up select queries, and where clauses when confronted with big data tables
      SYNTAX:
@@ -98,15 +98,24 @@ INDEX- special look up yables that datbases can use to retrieve data faster
    TYPES OF INDEXES:
         1. SINGLE COLUMN- created based only on one column of the table:
                                                                   CREATE INDEX  index name ON table name (COLUMN NAME)
+
         2. MULTI COLUMN- is the best choice if we use more than 1 column in the where clauses and filters.
                                                                  -CREATE INDEX  index name ON table name(COLUMN 1, COLUMN2..)
+
         3. UNIQUE- whenever we have data that is unique, we can create and unique index
                                                                   CREATE UNIQUE INDEX index name ON table name (COLUMN NAME)
 
 indexes can be REINDEXED when an INDEX gets corrupted and starts working slower.
                                     SYNTAX:
                                             REINDEX INDEX index name
-          
+
+DROP TABLES- can be used to delete tables
+           - if there are dependencies between tables we can use CASCADE which will remove the foreign key relationship between the tables
+                            DROP TABLE table table name CASCADE
+
+           - otherwise we delete the table that has the foreign key first
+           - if we want to check if a table is in our database, in order to avoid getting an error and making the program crash:
+           DROP table IF EXiSTS table name
 
 
 
