@@ -35,6 +35,6 @@ VIII. LIKE/ %/_ - each of these is used to help us filter through the attributes
                                           % represents any number of characters
                                           - represents one single character
                                       Example: extracting the name SCOTT:
-                                                                 SELECT * from CUSTOMERS WHERE last_name LIKE '%t%'
+                                                                 SELECT * from CUSTOMERS WHERE last_name LIKE "%t%"
                                                                                     name that has a T with any number of characters before and after
                                                                  SELECT* FROM CUSTOMERS WHERE last_name like '___tt'-3 underscores for each charact
