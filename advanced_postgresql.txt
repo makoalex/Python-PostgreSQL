@@ -1,0 +1,66 @@
+VIEW
+
+IS A NAMED QUERY.
+YOU CREATE A QUERY AND ASSIGN IT A NAME
+it helps simply the complexity of the query, because you can also query a view wchich iis based on a query
+using a simple select statement.
+ SYNTAX:
+            CREATE VIEW view name as QUERY
+       then whenever you need that query you just use the view cretaed based of it
+       EXAMPLE PGADMIN4:
+                        CREATE VIEW sum AS
+                        select customers.first_name, customers.last_name, sum(items.price)
+                        from customers inner join purchases
+                        on customers.id = purchases.customer_id
+                        inner join items on items.id= purchases.item_id
+                        group by customers.first_name, customers.last_name
+
+we can insert into view as well:- if a view was GROUPED BY it cannot be inserted into
+                        INSERT INTO VIEW NAME (COLUMN 1 COLUMN, 2...) VALUES ( FOR COLUMN 1, COLUMN 2)
+                        INSERT INTO sum (id, name, price) VALUES(9, 'LAPTOP', 1000)
+
+we can create a VIEW  where we filter through the prices for example
+                                select name, price from items where items.price >= 100
+                                     - but this will not check when we want to insert new data if the price is over 100
+             - instead we have to write a new VIEW :
+                                                 CREATE VIEW view_name AS
+                                                 select name, price from items where items.price> 100 +
+                                                  WITH LOCAL CHECK OPTION
+                                                       - this makes sure that each of the parts of the where clause  is
+                                                         being checked for
+we can create A VIEW BASED OF A VIEW
+              twe can use a view without any check like int the first example
+                                 CREATE VIEW expensive_stuff AS
+                                select name, price from items where items.price >= 1000
+                                        -   THEN  based of this we create another view with a check
+                                        CREATE VIEW non  ordinary_stuff AS
+                                        SELECT* FROM  expensive_stuff where price < 10000
+               in the ex above, if we use the WITH LOCAL CHECK OPTION, WE WILL CHECK JUST THE LOCAL WHERE CLAUSE
+               but if we use WITH CASCADED CHECK OPTION , WE CAN CHECK THE CLAUSE OF THE PREVIOUS WHERE CLAUSE WHERE THE
+               PRICE IS >= 100
+
+THE CUSTOMER WITH THE HIGHEST SALE IN PGADMIN4 EXAMPLE
+                    select customers.first_name, customers.last_name,
+                    sum(items.price )
+                    from items inner join purchases on items.id = purchases.item_id
+                    inner join customers
+                    on customers.id = purchases.customer_id
+                    group by customers.id 
+                    order by sum(items.price) desc limit
+
+
+ HAVING
+ the HAVING clause was added to SQL because the WHERE clause cannot be used with aggregated function (after group by for ex.)
+       SYNTAX:
+             SELECT column name from table name, where condition/ join condition
+             GROUP BY condition
+             HAVING condition
+             ORDER BY CONDITION
+
+                 IN THE PGADMIN4 EXAMPLE IF WE WANT TO FILTER THE CUSTOMER HAVING OVER 2 PURCHASES:
+                        SELECT customers.last_name, customers.first_name, count(purchases.id) as purch_c
+                        FROM customers inner join purchases
+                        ON customers.id = purchases.customer_id
+                        GROUP BY customers.id
+                        HAVING count(urchases.id)>2
+                        ORDER BY purch_c DESC
