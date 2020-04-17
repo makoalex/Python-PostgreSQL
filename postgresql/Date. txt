@@ -1,0 +1,56 @@
+
+DATE
+Postgresql usees 4 bytes to store a data value
+the data is formatted in the YEAR- MONTH- DAY format automatically ISO8601
+
+if we want to create a table that has a date column and we want to use the current date as a default value, we just add:
+            CREATE TABLE table name ( column 1,
+                                      column 2,
+                                      column 3(the one with the date)-DATE NOT NULL DEFAULT CURRENT DATE )
+            example: CREATE TABLE documents ( doc_id INTEGER PRIMARY KEY,
+                                              header_text varchar (255) NOT NULL,
+                                              posting_date date NOT NULL, DEFAULT CURRENT DATE )
+DATE FUNCTIONS
+
+NOW:- is used to get the current date and time
+    SYNTAX :
+                SELECT  NOW()
+                    if we want the current date only, without the time WE ADD :: AND date
+                          SELECT NOW():: date
+    - TO CHAR FUNCTION- to output the value to a format we want
+                      -it takes 2 parameters: - the value you want to format
+                                              - the template that defines the output format
+                                                     SELECT TO_CHAR(NOW() 'DD-MM-YYY HH:MM:SS')
+                                              - or to display the date : 17 april 2020:
+                                                      SELECT TO_CHAR (NOW():: date 'dd Mon yyyy')
+                                                      SELECT TO_CHAR(NOW()):: DATE 'DAY, DD-MM-YYYY')
+                                                               in order to remove the space that will show up after the day,
+                                                               we write : FMDAY
+                                                               we can write the day as DDth and get the correct ending
+
+     the  '-' operator used as in subtraction to get the  interval between 2 dates
+                for example we can have a COLUMN WITH THE HIRE DATES  of employees and want to find the days of work
+                  we sue this syntax:
+                                        NOW()- HIRE DATE
+
+AGE:- calculate the  age at the current date in years, months and days
+        say we have a BIRTH OF DATE COLUMN WE CAN USE THE AGE FUNCTION GOT GET ages of employees:
+                            AGE(BIRTH_DAY)
+
+     - if we give 2 parameters it will extract the second for the first
+         example. if we want to find the age at a certain time, we can write 2 parameters in the AGE function
+             AGE('2020-10-23', birth_day) WHERE BIRTH_DAY IS THE COLUMN IN OUR TABLE
+
+EXTRACT:-  to get the day, month, year, from a date value
+                
+POSTGRESQL haa a few data types that help us store dates :
+
+TIMESTAMP
+is a date type that allows to store date and time but IT DOESN'T HAVE ANY TIME ZONE
+TIMESTAMPTZ is the timestamp WITH TIME ZONE
+postgres stores timestamptz in UTC value:
+                                        when you insert values into a TIMESTAMPTZ COLUMN, POSGRESQL CONVERTS THE VLAUE
+                                        into a UTC VALUE and stores it in the table
+DATE
+TIME
+INTERVAL
