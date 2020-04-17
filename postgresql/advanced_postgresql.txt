@@ -70,3 +70,44 @@ ENUMERATED DATA TYPES- data type that comprise a static set of given values
                                  SYNTAX:
                                         CREATE TYPE name AS ENUM('value1', 'value2', 'value3')
                       -then we create the new table we will insert this as the data type of the column
+
+SUBQUERRIES/ NESTED QUERY- is a query embedded into another query or within the WHERE clause
+                         - it is used  to return data that will be used in the main query
+                           as a condition  form to restrict the data to be retrieved
+
+
+                Can be used with the SELECT, UPDATE, INSERT  and  DELETE  AND WITH OPERATORS :> <  IN ETC
+
+         RULES TO SUBQUERRIES:
+                              I. must be enclosed in parenthesis
+                              II. can only have have 1 column in the SELECT clause unless multiple values are present
+                                  in the main clause for comparison
+                              III. an ORDER BY cannot be used in a subquery, we can use GROUP BY the same way instead
+                              IV. subqueries that return more than one row can only be used with operators like ANY/SOME,
+                              IN,  EXISTS, NOT IN
+
+                   SYNTAX WITH SELECT:
+                                        select* from items where price >
+                                        (select avg(items.price) from items)
+                                                            witch price is higher then the average price
+
+
+
+                                        select items. name, items.price - (
+                                        select avg(items.price) from items)
+                                        from items
+                                                   example of nested query where we find the difference between prices
+                                                   and average cost of an item
+
+
+EXAMPLE ON HOW TO GET THE AVERAGE OF THE CUSTOMER WHO BOUGHT THE MOST ITEMS
+             ON PGADMIN4
+
+                select customers.last_name ,avg(items.price) as average
+                from customers
+                inner join purchases
+                on customers.id = purchases.customer_id
+                inner join items
+                on items.id = purchases.item_id
+                group by customers.last_name
+                order by average desc limit 1
