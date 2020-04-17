@@ -64,3 +64,9 @@ THE CUSTOMER WITH THE HIGHEST SALE IN PGADMIN4 EXAMPLE
                         GROUP BY customers.id
                         HAVING count(urchases.id)>2
                         ORDER BY purch_c DESC
+
+ENUMERATED DATA TYPES- data type that comprise a static set of given values
+                     - they are ordered, the first input is value number 0 and so forth
+                                 SYNTAX:
+                                        CREATE TYPE name AS ENUM('value1', 'value2', 'value3')
+                      -then we create the new table we will insert this as the data type of the column
