@@ -45,7 +45,7 @@ THE CUSTOMER WITH THE HIGHEST SALE IN PGADMIN4 EXAMPLE
                     from items inner join purchases on items.id = purchases.item_id
                     inner join customers
                     on customers.id = purchases.customer_id
-                    group by customers.id 
+                    group by customers.id
                     order by sum(items.price) desc limit
 
 
