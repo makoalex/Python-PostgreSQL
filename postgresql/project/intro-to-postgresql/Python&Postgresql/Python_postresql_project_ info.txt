@@ -1,0 +1,55 @@
+
+
+IN OUR PROJECT EXAMPLE WE CAN HAVE 2 DIFFERENT SOLUTIONS TO  SAVING TO A DATABASE
+        1.  where you fallow litral steps: open a connection, commit and close the connection
+                  ex:
+                    connection = psycopg2.connect(database="Learning", user='postgres', password='karenina', host='localhost',
+                                      port=5433)
+                    cursor = connection.cursor()
+                    insert_query = 'Insert into Users (Email, First_Name, Last_name) values (%s, %s, %s)'
+                    cursor.execute(insert_query, (self.email, self.first_name, self.last_name))
+                    connection.commit()
+                    connection.close()
+
+        2. and one where you can skip the commmit and close part of the conection by using WITH statemment:
+                     with psycopg2.connect(database="Learning", user='postgres', password='karenina', host='localhost',
+                                           port=5433) as connection:
+                         with connection.cursor() as cursor:
+                                cursor.execute('Insert into Users (Email, First_Name, Last_name) values (%s, %s, %s)',
+                                               (self.email, self.first_name, self.last_name))
+                     first WITH statement open the connection and names it (AS CONNECTIO)
+                     the second WITH creates the cursor object which will help us execute SQL commands.
+
+CONNECTION POOL:
+                - CACHED DATABASE CONNECTIONS THAT ARE CREATED  SO THAT CONNNECTIONS GET REUSED FOR INCOMING REQUESTS
+                    INSTEAD OF CRWATING NEW ONES
+the central bemefit of using a CONNECTION POOL is improved time and performance.
+creatting a POSTRESQL database is resource heavy and time consuming, so suing CCONNECTION POOL wecan reduce the request
+and response time of DATABSE CENTRIC APPLICATIONS IN PYTHON.
+
+I. ABSTRACT CONNECTION POOL:
+                            SYNTAX: PSYCOPG2.POOL.ABSTRACTCONNECTIONPOOL(min conections, max connections, *args, **kwrgs)
+
+            it's aanbstract class, that needs a subclass to implemenst
+II. SIMPLE CONNECTION POOL :
+                            SYNTAX:
+                                    PSYCOPG2.POOL.SIMPLECONNECTIONPOOL(min connections, max connections, *args, **kwargs)
+            subclass of ABSTRACT CLASS  , it is a ready to use class for the connection pool
+                    suited only for single threaded applications :
+                                    we cant share this across different threads
+                        recommended when we have a single thread application
+III. THREADED CONNECTION POOL:
+                            SYNTAX:
+                                    PSYCOPG2. POOL.THREADEDCONNECTIONPOOL(MIN, MAX, *ARGS, **KWRAGS)
+           also a sublass of ABSTRACT CLASS
+
+                        ready to use subclass
+            THIS IS USED FOR MUTLI THREADED EMVIRONMENTS, CAN BE SHARED BETWEEN MULTIPLE THREADS
+IV. PERSISTENT CONNECTION POOL:
+                            SYNTAX:
+                                    PSYCOPG2.POOL.PERSISTENTCOONECTIONPOOL(MIN, MAX, *ARGS, **KWRGS)
+                    SUBCLASS OF ABSTRACT CLASS
+                used in multithread applications
+                    each thread gets a single connection from the pool- thread can't use more than 1 connection per pool
+                the connection thread generates a key using thread id  that means for each threadm for every call of getting
+                CONNECTION putting CONNECTION, pool gives and releases that same connection
