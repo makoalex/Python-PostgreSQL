@@ -1,6 +1,7 @@
 from User import User
-# my_first= User('Mako@gmail.com', 'Mako', 'Chan', None)
-# my_first.save_to_db()
-my_user= User.load_from_db('Mako@gmail.com')
-print(my_user)
-
+user = User.load_from_db('Mako@gmail.com')
+print(user)
+user1 = User('new_user@yahoo.com', 'Jack', 'Don', None)
+user1.save_to_db()
+new = User.load_from_db('business@yahoo.com')
+print(new)

@@ -1,6 +1,10 @@
-import psycopg2
+from psycopg2 import pool
 
-
-def connect():
-    return psycopg2.connect(database='Learning', user='postgres', password='karenina', host='localhost',
-                            port=5433)
+my_connection = pool.SimpleConnectionPool(
+    1, 2,
+    database='Learning',
+    user='postgres',
+    password='karenina',
+    host='localhost',
+    port=5433
+)
