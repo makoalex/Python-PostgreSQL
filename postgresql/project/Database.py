@@ -21,8 +21,9 @@ class CursorFromConnectionFromPool:
         return self.cursor
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        if self.connection is not None:
+        if exc_val is not None:
             self.connection.rollback()
         else:
             self.connection.commit()
+        self.cursor.close()
         return my_connection.putconn(self.connection)
