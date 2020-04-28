@@ -45,4 +45,60 @@ REST specifies that the communication between those 2 is a
                 ALLOWS THE CLIENT TO TALK TO THE SERVER IN A SINGLE LANGUAGE, INDEPENDENT OF THE ARCHITECTURAL BACKEND
                 IF THE SERVER IS COMPRISED OF MANY SERVERS, IT DOESN'T MATTER WHICH ONE WE ARE ASKING
 
-          
+HTTP and RESTful services
+
+is a set of rules that we use to transfer data over the internet
+the most commonly used HTTP methods/verbs and their CRUD counter parts:
+
+
+
+POST/CREATE
+    used to  CREATE new resources in particular subordinate resources to the PARENT RESOURCE
+    when we create ea new resource, we post and service  will take care of associating it with the prent- assigning ID etc
+    - are used to create a new resource into a collection of resources
+              if a resource has been created on the origIn server, the code RESPONSE should eb 201(CREATED)+
+              an entity which describes the status of the request and refers to the new resource
+                    - many times the acTion may not result in a resource that can be identified by an URI
+                                in this case the RESPONSE CODE 200 (OK) OR 204 (NO CONTENT)
+
+GET/READ
+    used to GET/REad a representation of a resource
+    GET and HEAD requests are only used to read data not change it
+    - in a non error mode we would get a 200  RESPONSE code (ok)
+    - in an error environment we would get RESPONSE CODE  404 (not found) or 400 (bad request)
+PUT/UPDATE
+    is most often used for its updating capabilities
+    if the resource does not exist then thE API may decide to create a new resource.
+                    then the service API  must inform the user api that a new  resource has been created
+                    with RESPONSE CODE 201(CREATED)
+    if the resource is instead updated, then the server api must emit a RESPONSE CODE 200 (OK) or 204(NO CONTENT) response code
+
+ THE DIFFERENCE BETWEEN PUT AND POST  IS THAT -PUT IS MADE TO A SINGLE ENTITY /RESOURCE
+                                              -POST IS MADE TO RESOURCE COLLECTIONS
+                                                    EXAMPLE:
+                                                                HTTP PUT http://www.appdomain.com/users/123
+                                                                HTTP POST http://www.appdomain.com/users
+                                                                HTTP PUT http://www.appdomain.com/users/123/accounts/456
+                                                                HTTP POST http://www.appdomain.com/users/123/accounts
+PATCH/UPDATE/MODIFY
+        is used to PARTIALLY MODIFY A RESOURCE
+        while PUT modifies an entity in its entirety,
+        PATCH partially modifies it
+                example:
+                        HTTP GET /users/1
+                        produces below response:
+                        {id: 1, username: 'admin', email: 'email@example.org'}
+
+                        A sample patch request to update the email will be like this:
+
+                        HTTP PATCH /users/1
+
+                        [
+                        { “op”: “replace”, “path”: “/email”, “value”: “new.email@example.org” } ]
+DELETE/DELETE
+        is used to delete resources
+a successful deletion should return a HTTP RESPONSE CODE of:- 202 (OK)
+                                                            - 202(ACCEPTED)  if the action has been queued
+                                                            - 204 (NO CONTENT)- if the action has been performed but
+                                                              the result does not include an entity
+
