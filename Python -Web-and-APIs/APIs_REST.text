@@ -1,0 +1,48 @@
+API
+<Application Programming Interface>
+- in computing and interface is a shared boundary through which 2 or more separate components of a computer system exchange
+  information
+- the exchange can be between software, peripheral devices, computer hardware, humans etc
+THE API is software intermediary that allows 2 applications to talk to each other
+
+we can encounter WEB APIs that talk to other WEB APIs such as POSTGRESQL- although it was not an web api
+                     -it came in the form of Python code that we can import and use (psycopg2)
+WEB APIs are not Python code so they work with evEry programming language
+
+we can use web apis with REST AN SOAP
+REST
+stands for REPRESENTATIONAL STATE TRANSFER
+            - DETERMINES HOW THE API LOOKS LIKE
+            - IT IS  A SET OF RULES THAT DEVELOPERS FALLOW WHEN THEY CREATE THE API
+                            one of the rules states that you should be able to get a piece of data (resource) when you
+                            link to a specific URL
+- it is an architectural style for providing standards between computer systems on the web making it easier
+  for the systems to communicate with each other
+
+  REST compliant systems are called RESTful
+on the internet we have servers(Twitter server9 and clients(my pc for example)
+REST specifies that the communication between those 2 is a
+   CLIENT SERVER INTERFACE
+        - the API lives on the server , my computer runs and asks it for things
+                the client and server should be separate from each other and allowed to evolve independently
+                           - for example, we should be able to make changes our application without impacting the
+                            design or data structure of our server.
+                           - we should be able to make changes in the server application without impacting the client.
+    STATELESS
+            - IT MEANS THAT THE SERVER DOESNT KNOW WHO IS WHO IN TERMS OF THE CLIENTS.
+            THE SERVER DOESNT REMEMBER  WE ARE- means that a lot of people cna log in at the same  time
+                                                and the server doesnt have to juggle information
+       - calls are mde independently of one another, each call containing the data necessary to complete itself successfully
+       - a REST API should not rely on data being stored in a server to determine what to do with it, but rather
+         rely on the data being provided in the call itself
+    CACHEBLE
+            A RESTful API  should be designed to encourage the storage of chacheble data
+            this means that when the date is cacheble, the data should be stored up to a certain time
+                        by enabling this we will - REDUCE THE NUMBER OF INTERACTIONS WITH THE API
+                                                 - REDUCE SERVER USAGE
+                                                 - PROVIDE API USERS WITH THE TOOLS NECESSARY T PROVIDE THE FASTEST APPPS
+    UNIFORM INTERFACE
+                ALLOWS THE CLIENT TO TALK TO THE SERVER IN A SINGLE LANGUAGE, INDEPENDENT OF THE ARCHITECTURAL BACKEND
+                IF THE SERVER IS COMPRISED OF MANY SERVERS, IT DOESN'T MATTER WHICH ONE WE ARE ASKING
+
+          
