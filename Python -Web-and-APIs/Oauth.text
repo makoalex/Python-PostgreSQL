@@ -1,0 +1,51 @@
+Oauth
+stands for OPEN STANDARD AUTHORIZATION PROTOCOL
+
+IT DESCRIBES HOW UNRELATED SERVICES OR SERVERS ALLOW AUTHENTICATED ACCESS TO THEIR DATA WITHOUT SHARING INITIAL LOG ON CREDENTIALS
+
+this is known as a secure third party delegated authorization
+
+OAUTH FLOW
+made of visible steps to grant consent
+invisible steps where the 2 services agree on a secure way of exchanging information
+I. RESOURCE OWNER:- us, the owner of the data
+II.CLIENT:- the 1st website, application that wants to perform actions on behalf of us
+III.AUTHORIZATION SERVER:- the application that knows the resource owner. where we have an account
+IV. RESOURCE SERVER:- application from where the client needs to extract data belonging to the RESOURCE OWNER
+                    - sometimes the AUTHORIZATION AND RESOURCE SERVER are the same server, but there are times where
+                      a third party is used, one that is trusted by the Resource server
+V.REDIRECT URI:- the URL the resource owner will be redirected back to by the authorization server after granting permission to the client
+VI.RESPONSE TYPE:- the type of response that is expected to receive. Most times is an AUTHORIZATION CODE
+VII. SCOPE:- the granular permissions the client wants : READ CONTACTS, ACCESS CAMERA, READ PROFILE, POST ON PROFILE
+VII.CONSENT:- THE AUTHORIZATION SERVER takes the SCOPES the CLIENT is requesting and verifies with the RESOURCE OWNER
+              if they want to give the client permission
+VIII.Client ID& CLIENT SECRET- an id and secret given to the client by the authorization server as an unique identifier
+                                (meaning there might be more than one person accessing the same service a the same time)
+                              - the secret is a pass that only the client ad the authorization server know.
+                              - it allows them to share information quietly behind the scenes
+IX. AUTHORIZATION CODE:- temporarily shrt lived authorization code send back by the server to the client
+                       - the client then sends in the back not the AUTHORIZATION SERVER with the SECRET
+                         in exchange for an ACCESS TOKEN
+X.ACCESS TOKEN:- acts like a key the client will use in order to communicate with the resource server
+               - it gives the client power to perform operations or extract data from the RESOURCE SERVER  on your behalf
+
+THE FLOW:
+1.-THE RESOURCE OWNER want to allow the client access to data located on a resource server
+
+2. THE CLIENT redirects your browser together with CLIENT ID, REDIRECT URI, RESPONSE TYPE AND SCOPE
+    to the AUTHORIZATION SERVER
+
+3. THE AUTHORIZATION SERVER verifies who your are, and if you're not logged it, it will prompt a login page,
+
+4. THE AUTHORIZATION SERVER presents you with a CONSENT FORM containing the SCOPES
+
+5. THE AUTHORIZATION SERVER redirects back to the client vie the REDIRECT URI a temporary AUTHORIZATION CODE
+
+6. THE AUTHORIZATION CODE is sent to the AUTHENTICATION SERVER on the back end, not vie browser together with the CLIENT SECRET and ID
+
+7. THE AUTHORIZATION SERVER analyzes the data then sends back an unique ACCESS TOKEN which will be used for further transactions by the CLIENT.
+   THE ACCESS TOKEN, acts in the same way as a hotel room card, that allows you to unlock the room.
+
+8. THE ACCESS TOKEN is something the CLIENT doesn't understand, but it contains the essential info that validates THE RESOURCE OWNER
+   THE ACCESS TOKEN is thus sent to the RESOURCE SERVER in order to retrieve the data specified in the scope
+   THE CLIENT an use it to send requests to the RESOURCE SERVER in order to get the dat associated with the resource owner of the ACCESS TOKEN
