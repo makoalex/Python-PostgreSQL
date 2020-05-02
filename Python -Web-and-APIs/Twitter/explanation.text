@@ -1,0 +1,25 @@
+1st thing we do is to create a consumer.
+    the consumer is the object which represents our application
+            this is part of Oauth2 import see project
+                    oauth2.Consumer()- that is a class inside oauth2
+2. In order to be able to identify our app we need to use the CLIENT KEY/ID and  CLIENT SECRET
+    the consumer object cannot be used to make requests to the API,
+3 we create a CLIENT that is a client oject in the OAUTH2 library
+            we pass the consumer object parameter, the application that client is making requests FOR
+4. we can perform the REQUEST ON THE CLIENT- DIFFERENT FROM REQUESTS.GET , BECAUSE TWITTER GOES WELL WITH OAUTH2 LIBRARY
+            INSIDE WE HAVE TO OUT THE URL WE WANT TO REQUEST (REQUEST TOKEN URL FIRST),
+            because it's a POST URL(check twitter for what type of request it is), we have to give that parameter after the url
+            the result is going to be a list of tuples in bytes that we can transform in a dictionary
+5. we check to see if the result of the request is a code 200 (ok) other wise we raise an ERROR
+6. we import URLIB.PARSE AND PARSE.QSL(parse a query string, and returns a list of name value pairs)
+                    if the list is in bytes, we can add the parameter decode
+                    WE CREATED A  REQUEST TOKEN WHICH WIL LATER BE USED FOR AUTHORIZATION
+7. the next thing after the request token in received would be to get a authorization code.
+    for that we have to be redirect via a callback URL but as we don't have a site, Twitter will give us an ID instead
+            WE WILL GIVE THE LINK TO FOLLOW A QUERY STRING: ACCESSING THE ULR FOR AUTHORIZATION AND LOOK IN THE REQUEST TOKEN THAT WE HAVE CREATED
+            FOR THE OAUTH_TOKEN KEY VALUE PAIR
+            we pass that in the format function
+8 we get redirect to the prompt where we have to authorize twitter
+9. we create a TOKEN OBJECT (OAUTH2.TOKEN()) WHICH WILL TAKE 2 PARAMETERS FROM REQUEST TOKEN: - oauth_token
+                                                                                              - oauth_token secret
+                                                 and it binds them together so that we can do some operations with that
