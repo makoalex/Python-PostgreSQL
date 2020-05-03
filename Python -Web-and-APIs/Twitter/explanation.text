@@ -23,3 +23,13 @@
 9. we create a TOKEN OBJECT (OAUTH2.TOKEN()) WHICH WILL TAKE 2 PARAMETERS FROM REQUEST TOKEN: - oauth_token
                                                                                               - oauth_token secret
                                                  and it binds them together so that we can do some operations with that
+10. we will recreate the CLIENT as in the 1st line, but we will add as a parameter the TOKEN OBJECT WE CREATED
+            the explanation is that the 1st client was used to identify the app in Twitter,
+            but not we are trying to tie everything together and get the access token
+11. we create another TOKEN OBJECT but this time it is for the access token
+        that will perform requests from the RESOURCE SERVER .
+            THIS IS OUR HOTEL KEY
+12. we will create an AUTHORIZED CLIENT, that takes 2 parameters- the CONSUMER- THE APP WE CREATED ON THE 1ST LINE
+                                                                - the TOKEN OBJECT FROM 11.
+                                         TOGETHER THESE 2 AND WHENEVER WE MAKE A REQUEST THIS TOKEN WILL BE SENT ALONG WITH THE REQUEST
+                                         TWITTER will know it's an access token and we are representing the user that authorized the token
