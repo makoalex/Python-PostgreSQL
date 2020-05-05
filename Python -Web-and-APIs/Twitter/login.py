@@ -3,6 +3,8 @@ import urllib.parse as urlparse
 import oauth2
 
 import constants
+import json
+from pprint import pprint
 
 consumer = oauth2.Consumer(constants.CLIENT_KEY, constants.CLIENT_SECRET)
 client = oauth2.Client(consumer)
@@ -20,4 +22,12 @@ client = oauth2.Client(consumer, token)
 response, content = client.request(constants.ACCESS_TOKEN_URL, 'POST')
 access_token = dict(urlparse.parse_qsl(content.decode('utf-8')))
 authorized_token = oauth2.Token(access_token['oauth_token'], access_token['oauth_token_secret'])
-authorized_client = oauth2.Client(consumer,authorized_token )
+authorized_client = oauth2.Client(consumer, authorized_token)
+
+response, content = authorized_client.request('https://api.twitter.com/1.1/search/tweets.json?q=computers+filter:images',
+                                              'GET')
+if response.status != 200:
+    print('An error has occurred')
+tweets = json.loads(content.decode('utf-8'))
+#pprint(tweets['statuses'])
+print(s['text'] for s in tweets['statuses'])

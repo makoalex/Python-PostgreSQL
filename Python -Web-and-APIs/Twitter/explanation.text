@@ -32,4 +32,9 @@
 12. we will create an AUTHORIZED CLIENT, that takes 2 parameters- the CONSUMER- THE APP WE CREATED ON THE 1ST LINE
                                                                 - the TOKEN OBJECT FROM 11.
                                          TOGETHER THESE 2 AND WHENEVER WE MAKE A REQUEST THIS TOKEN WILL BE SENT ALONG WITH THE REQUEST
+
                                          TWITTER will know it's an access token and we are representing the user that authorized the token
+
+PERFORMING REQUESTS TO TWITTER
+1. making a request to search for something, using the AUTHORIZED CLIENT+ SEARCH API + THE VERB we use for the HTTP REQUEST
+                                            (the api uses GET )

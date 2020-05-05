@@ -1,5 +1,8 @@
-CLIENT_KEY = '9Lps6459Es8xpHtrvAR7JLCUa'
-CLIENT_SECRET = '6qIXQL5SpmMuzkTjwK1fzWdmRTonvq5WArCiEK8HngHe7x5UAA'
+import os
+
+
+CLIENT_KEY = os.environ['TWITTER_CLIENT_KEY']
+CLIENT_SECRET = os.environ['TWITTER_CLIENT_SECRET']
 
 REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token'
 ACCESS_TOKEN_URL = 'https://api.twitter.com/oauth/access_token'
