@@ -20,19 +20,21 @@ class Database:
     def close_all_connections():
         return Database.my_connection.closeall()
 
-    class GetConnectionFromPool:
-        def __init__(self):
-            self.connection = None
-            self.cursor = None
 
-        def __enter__(self):
-            self.connection = Database.get_connection()
-            self.cursor = self.connection.cursor()
+class GetConnectionFromPool:
+    def __init__(self):
+        self.connection = None
+        self.cursor = None
 
-        def __exit__(self, exc_type, exc_val, exc_tb):
-            if exc_val is not None:
-                return self.connection.rollback()
-            else:
-                self.connection.commit()
-            self.cursor.close()
-            return Database.put_back_connection(self.connection)
+    def __enter__(self):
+        self.connection = Database.get_connection()
+        self.cursor = self.connection.cursor()
+        return self.cursor
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_val is not None:
+            return self.connection.rollback()
+        else:
+            self.connection.commit()
+        self.cursor.close()
+        return Database.put_back_connection(self.connection)
