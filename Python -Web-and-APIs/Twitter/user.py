@@ -2,8 +2,8 @@ import json
 
 import oauth2
 
-from constants import CLIENT_SECRET, CLIENT_KEY
 from database import GetConnectionFromPool
+from twitter_utilities import consumer
 
 
 class User:
@@ -31,16 +31,31 @@ class User:
             data = cursor.fetchone()
             if data:
                 print(data[0], data[1])
+
+            def twitter_request_existing_user():
                 authorized_token = oauth2.Token(data[0], data[1])
-                authorized_client = oauth2.Client(oauth2.Consumer(CLIENT_KEY, CLIENT_SECRET), authorized_token)
+                authorized_client = oauth2.Client(consumer, authorized_token)
                 response, content = authorized_client.request(
-                     'https://api.twitter.com/1.1/search/tweets.json?q=computers+filter:images',
-                     'GET')
+                    'https://api.twitter.com/1.1/search/tweets.json?q=computers+filter:images',
+                    'GET')
                 if response.status != 200:
                     print('oops')
                 else:
                     tweets = json.loads(content.decode('utf-8'))
-                    return tweets['statuses']
+                    for tweet in tweets['statuses']:
+                        print(tweet['text'])
+
+            twitter_request_existing_user()
+
+    def twitter_request(self, uri, verb='GET'):
+        authorized_token = oauth2.Token(self.oauth_token, self.oauth_token_secret)
+        authorized_client = oauth2.Client(consumer, authorized_token)
+
+        response, content = authorized_client.request(uri, verb)
+        print(response)
+        if response.status != 200:
+            print('An error has occurred')
+        return json.loads(content.decode('utf-8'))
 
     @classmethod
     def load_from_db(cls, email):

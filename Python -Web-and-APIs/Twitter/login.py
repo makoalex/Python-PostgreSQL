@@ -1,11 +1,7 @@
-import json
-import urllib.parse as urlparse
 from pprint import pprint
 
-import oauth2
-
-import constants
 from database import Database
+from twitter_utilities import get_request_token, get_oauth_verifier, get_access_token
 from user import User
 
 Database.initialise_connection(
@@ -17,41 +13,25 @@ Database.initialise_connection(
 user_email = input('enter your email: \n')
 user = User.load_from_db(user_email)
 if user:
-    print(User.load_oauth(user_email))
+   print( User.load_oauth(user_email))
+    # user.tweet_request_existing_user("https://api.twitter.com/1.1/search/tweets.json?q=computers+filter:images", data)
+
 else:
+    request_token = get_request_token()
 
-    consumer = oauth2.Consumer(constants.CLIENT_KEY, constants.CLIENT_SECRET)
-    client = oauth2.Client(consumer)
-    response, content = client.request(constants.REQUEST_TOKEN_URL, 'POST')
-    if response.status != 200:
-        print('An error occurred getting request_token from Twitter')
-    request_token = dict(urlparse.parse_qsl(content.decode('utf-8')))
-    print('Please fallow the site  in your browser')
-    print('{}?oauth_token={}'.format(constants.AUTHORIZATION_URL, request_token['oauth_token']))
+    oauth_verifier = get_oauth_verifier(request_token)
 
-    oauth_verifier = input('please enter the pin\n')
-    token = oauth2.Token(request_token['oauth_token'], request_token['oauth_token_secret'])
-    token.set_verifier(oauth_verifier)
-    client = oauth2.Client(consumer, token)
-    response, content = client.request(constants.ACCESS_TOKEN_URL, 'POST')
-    access_token = dict(urlparse.parse_qsl(content.decode('utf-8')))
+    access_token = get_access_token(request_token, oauth_verifier)
     print(access_token)
 
-    email = input('Enter your email please:\n')
     first_name = input('now first name\n')
     last_name = input('and the last name:\n')
-    user= User(email, first_name, last_name, access_token['oauth_token'], access_token['oauth_token_secret'], None)
+    user = User(user_email, first_name, last_name, access_token['oauth_token'], access_token['oauth_token_secret'],
+                None)
     user.save_to_db()
 
-    authorized_token = oauth2.Token(access_token['oauth_token'], access_token['oauth_token_secret'])
-    authorized_client = oauth2.Client(consumer, authorized_token)
+    # 'https://api.twitter.com/1.1/search/tweets.json?q=computers+filter:images''GET')
 
-    response, content = authorized_client.request(
-        'https://api.twitter.com/1.1/search/tweets.json?q=computers+filter:images',
-        'GET')
-    print(response)
-    if response.status != 200:
-        print('An error has occurred')
-    tweets = json.loads(content.decode('utf-8'))
+    tweets = user.twitter_request('https://api.twitter.com/1.1/search/tweets.json?q=computers+filter:images')
     pprint(tweets['statuses'])
     print(list(s['text'] for s in tweets['statuses']))
