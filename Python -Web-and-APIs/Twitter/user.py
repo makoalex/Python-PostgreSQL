@@ -7,27 +7,25 @@ from twitter_utilities import consumer
 
 
 class User:
-    def __init__(self, email, first_name, last_name, oauth_token, oauth_token_secret, id):
-        self.email = email
-        self.first_name = first_name
-        self.last_name = last_name
+    def __init__(self, screen_name, oauth_token, oauth_token_secret, id):
+        self.screen_name = screen_name
         self.oauth_token = oauth_token
         self.oauth_token_secret = oauth_token_secret
         self.id = id
 
     def __repr__(self):
-        return ' User: {}.'.format(self.email)
+        return ' User: {}.'.format(self.screen_name)
 
     def save_to_db(self):
         with GetConnectionFromPool() as cursor:
-            cursor.execute('Insert into Users (email, firstname, lastname, oauth_token, oauth_token_secret) values '
-                           '(%s, %s, %s, %s, %s)',
-                           (self.email, self.first_name, self.last_name, self.oauth_token, self.oauth_token_secret))
+            cursor.execute('Insert into Users (screen_name, oauth_token, oauth_token_secret) values '
+                           '(%s, %s, %s)',
+                           (self.screen_name, self.oauth_token, self.oauth_token_secret))
 
     @classmethod
-    def load_oauth(cls, email):
+    def load_oauth(cls, screen_name):
         with GetConnectionFromPool() as cursor:
-            cursor.execute('select oauth_token, oauth_token_secret from users Where email = %s', (email,))
+            cursor.execute('select oauth_token, oauth_token_secret from users Where screen_name = %s', (screen_name,))
             data = cursor.fetchone()
             if data:
                 print(data[0], data[1])
@@ -58,13 +56,13 @@ class User:
         return json.loads(content.decode('utf-8'))
 
     @classmethod
-    def load_from_db(cls, email):
+    def load_from_db(cls, screen_name):
         with GetConnectionFromPool() as cursor:
-            cursor.execute('Select* from users where Email = %s', (email,))
+            cursor.execute('Select* from users where screen_name = %s', (screen_name,))
             data = cursor.fetchone()
             if data:
-                print(cls(email=data[1], first_name=data[2], last_name=data[3], oauth_token=data[4],
-                          oauth_token_secret=data[5],
-                          id=data[0]))
-                return ' Email- {}\n First Name- {}\n Last Name- {}\n Oauth Token- {}\n Oauth Token Secret {}\nID- {}'.format(
-                    data[1], data[2], data[3], data[4], data[5], data[0])
+                print(' screen_name- {}\n  Oauth Token- {}\n Oauth Token Secret {}\nID- {}'.format(
+                    data[1], data[2], data[3], data[0]))
+                return User(screen_name=data[1], oauth_token=data[2],
+                            oauth_token_secret=data[3],
+                            id=data[0])
