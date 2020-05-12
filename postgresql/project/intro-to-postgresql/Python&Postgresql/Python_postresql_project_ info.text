@@ -53,3 +53,16 @@ IV. PERSISTENT CONNECTION POOL:
                     each thread gets a single connection from the pool- thread can't use more than 1 connection per pool
                 the connection thread generates a key using thread id  that means for each thread for every call of getting
                 CONNECTION putting CONNECTION, pool gives and releases that same connection
+
+IMPLEMENTING A POOL CONNECTION:
+                we have to use the GETCONN() method in order to request a new connection from he connection pool
+                after we executed our database operations against the POSTGRESQL database:
+                       use the PUTCONN() method in order to release the connection back into the connection pool
+                 at the end we use CLOSEALL in order to close all the connection because we want to close the application
+
+Implementing a class for a with statement, that will open and close the connection, as well as putting the connection
+back in the connection pool
+we use the __ENTER__  and __EXIT__ FUNCTIONS
+DOCUMENTATION: https://www.geeksforgeeks.org/with-statement-in-python/
+               http://effbot.org/zone/python-with-statement.htm
+

@@ -1,8 +1,8 @@
-from flask import Flask, render_template, session, redirect, request
+from flask import Flask, render_template, session, redirect, request, url_for
 
+from database import Database
 from twitter_utilities import get_request_token, get_oauth_verifier_url, get_access_token
 from user import User
-from database import  Database
 
 app = Flask(__name__)
 app.secret_key = '1234'
@@ -37,7 +37,13 @@ def auth_twitter():
         user = User(access_token['screen_name'], access_token['oauth_token'], access_token['oauth_token_secret'], None)
         user.save_to_db()
         session['screen_name'] = user.screen_name
-    return user.screen_name
+    return redirect(url_for('to_profile'))
+
+
+# send the user after login to the user profile
+@app.route('/profile')
+def to_profile():
+    return render_template('profile.html', screen_name=session['screen_name'])
 
 
 # create and app and run it on local host on port 4995
