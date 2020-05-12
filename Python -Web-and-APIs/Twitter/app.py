@@ -41,6 +41,8 @@ def auth_twitter():
 
 
 # send the user after login to the user profile
+# used GINGER 2 templating language :
+# we can pass variables to the render template method and use them within the HTML
 @app.route('/profile')
 def to_profile():
     return render_template('profile.html', screen_name=session['screen_name'])
