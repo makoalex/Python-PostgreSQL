@@ -20,9 +20,8 @@ Database.initialise_connection(
 def load_user_object():
     if 'screen_name' in session:
         g.user = User.load_from_db(session['screen_name'])
+
         # G is a global namespace for holding any data during an app context
-        # the BEFORE REQUEST allows us to run a function before every request
-        # ideal for opening database connections loading an user from a sesion working with FLASK g object
 
 
 @app.route('/')
@@ -32,6 +31,8 @@ def home_page():
 
 @app.route('/login/twitter')
 def twitter_login():
+    if 'screen_name' in session:
+        return redirect(url_for('to_profile'))
     request_token = get_request_token()
     session['request_token'] = request_token
     return redirect(get_oauth_verifier_url(request_token))
@@ -51,7 +52,8 @@ def auth_twitter():
     if not user:
         user = User(access_token['screen_name'], access_token['oauth_token'], access_token['oauth_token_secret'], None)
         user.save_to_db()
-        session['screen_name'] = user.screen_name
+    session['screen_name'] = user.screen_name
+
     return redirect(url_for('to_profile'))
 
 
@@ -60,7 +62,17 @@ def auth_twitter():
 # we can pass variables to the render template method and use them within the HTML
 @app.route('/profile')
 def to_profile():
+    print(g)
     return render_template('profile.html', user=g.user)
+
+
+@app.route('/search')
+def search():
+    tweets = g.user.twitter_request('https://api.twitter.com/1.1/search/tweets.json?q=computers+filter:images')
+    text = [tweet['text'] for tweet in tweets['statuses']]
+    return render_template('search.html', content=text)
+
+
 
 
 # create and app and run it on local host on port 4995
