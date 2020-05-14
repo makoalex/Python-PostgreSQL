@@ -9,13 +9,23 @@
     <div class="container">
         <style type="text/css" >
             #tweets{
-                margin-top: 2rem; 
+                margin-top: 2rem;
                 margin-bottom: 3rem;
                 }
         </style>
         <ul class="list-group" id="tweets">
+
+
             {% for elem in content %}
-            <li class="list-group-item">{{elem}}</li>
+            {% set css_class = "list-group-item-info" %}
+                {% if elem['label']== "neg"  %}
+                    {% set css_class = "list-group-item-danger" %}
+                {% elif elem['label']== "pos" %}
+                    {% set css_class ="list-group-item-success" %}
+                {% endif %}
+
+
+            <li class="list-group-item {{css_class}}" >{{elem['tweet']}}</li>
             {% endfor %}
         </ul>
     </div>

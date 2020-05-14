@@ -10,9 +10,10 @@
         <h2>{{user.screen_name}}</h2>
             <form action="{{url_for('search')}}">
                 <label for="q">Go Ahead</label>
-                <input type="text" name="q" placeholder="Curiosity killed the cat">
-                <button type="submit" class="btn btn-success">Search it</button>
+                <input type="text" id="q" placeholder="Curiosity killed the cat">
+                <button type="submit" class="btn btn-info">Search it</button>
             </form>
+        <a href="{{url_for('twitter_logout')}}" class="btn btn-info" role="button">Logout here</a>
     </div>
 </body>
 </html>
