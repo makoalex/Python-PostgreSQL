@@ -8,8 +8,11 @@
 <body>
     <div class="container">
         <h2>{{user.screen_name}}</h2>
-        <a href="{{url_for('search')}}" button type="button" class="btn btn-success">Search for stuff</a>
-
+            <form action="{{url_for('search')}}">
+                <label for="q">Go Ahead</label>
+                <input type="text" name="q" placeholder="Curiosity killed the cat">
+                <button type="submit" class="btn btn-success">Search it</button>
+            </form>
     </div>
 </body>
 </html>
