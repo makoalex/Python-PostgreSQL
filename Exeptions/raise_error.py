@@ -9,7 +9,35 @@ def make_color(text, colour):
     print('printed {} in {}'.format(text, colour))
 
 
-make_color('hey there', 'orange')
-make_color('hei','yelloww')
+make_color('hei', 'yellow')
 
 """helpful for making custom error messages, raise our own type error"""
+
+
+# user logs in with wrong username or password
+class IncorrectPasswordError(ValueError):
+    pass
+
+
+def login():
+    raise IncorrectPasswordError
+
+
+try:
+    login()
+except IncorrectPasswordError:
+    print('wrong password')
+
+
+class IncorrectUsername(ValueError):
+    pass
+
+
+def log_in():
+    raise IncorrectUsername
+
+
+try:
+    log_in()
+except IncorrectUsername:
+    print('Username not found')
